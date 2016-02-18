@@ -1,0 +1,65 @@
+package common;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @ELEMENT_TITLE@のEnumクラス<br>
+ * 作成：@TODAY@
+ * @author 
+ * @version 1.0
+ */
+public enum @CLASS_NAME@ {
+
+	@ELEMENTS@
+
+	/**
+	 * コード値を保持するMap
+	 */
+	private static final Map<String, @CLASS_NAME@> CODE_MAP = initMap(@MAP_PARAM@);
+
+	/**
+	 * コード値
+	 */
+	private final String code;
+
+    /**
+     * コンストラクタ
+     * @param code コード値
+     */
+	private @CLASS_NAME@(String code) {
+		this.code = code;
+	}
+
+    /**
+     * コード値を保持するMapを初期化する
+     * @param elements @ELEMENT_TITLE@のEnum
+     * @return コード値を保持するMap
+     */
+	private static Map<String, @CLASS_NAME@> initMap(@CLASS_NAME@... elements) {
+		Map<String, @CLASS_NAME@> map = new HashMap<>();
+		for (@CLASS_NAME@ element : elements) {
+			map.put(element.toString(), element);
+		}
+		return map;
+	}
+
+    /**
+     * コード値を取得する
+     * @return コード値
+     */
+    public String toString() {
+        return code;
+    }
+
+    /**
+     * コード値に該当するEnumを取得する
+     * @param code コード値
+     * @return @ELEMENT_TITLE@のEnum
+     */
+	public static @CLASS_NAME@ toElement(String code) {
+		return CODE_MAP.get(code);
+	}
+
+	@METHODS@
+}
