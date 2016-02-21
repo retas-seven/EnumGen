@@ -56,7 +56,7 @@ public class EnumGen {
      * Enum定義CSVファイル格納ディレクトリの内容を取得
      */
     private static File[] getSourceDirContents() {
-        File[] sourceDirContents = new File("enum_source").listFiles();
+        File[] sourceDirContents = new File("enum_src").listFiles();
         return sourceDirContents;
     }
 
@@ -113,7 +113,7 @@ public class EnumGen {
         csvContentList.remove(0);
 
         try (PrintWriter enumFileWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(
-                "enum_destination/" + enumClassName + ".java"), "UTF-8"))) {
+                "enum_dest/" + enumClassName + ".java"), "UTF-8"))) {
 
             for (String templateContentRow : templateContentRowList) {
                 String replacedRowStr = new String(templateContentRow);

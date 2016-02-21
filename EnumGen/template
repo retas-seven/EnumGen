@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * @ELEMENT_TITLE@のEnumクラス<br>
- * 作成：@TODAY@
+ * 自動生成：@TODAY@
  * @author 
  * @version 1.0
  */
