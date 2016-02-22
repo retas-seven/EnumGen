@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * 野菜のEnumクラス<br>
- * 自動生成：2016/02/21
+ * 自動生成：2016/02/23
  * @author 
  * @version 1.0
  */
@@ -73,36 +73,32 @@ public enum Vegetables {
 
     /**
      * キャベツであるか判別する<BR>
-     * 
      * @return キャベツの場合は{@code true}、それ以外は{@code false}
-     **/
+     */
     public boolean isCabbage() {
         return this == CABBAGE;
     }
 
     /**
      * レタスであるか判別する<BR>
-     * 
      * @return レタスの場合は{@code true}、それ以外は{@code false}
-     **/
+     */
     public boolean isLettuce() {
         return this == LETTUCE;
     }
 
     /**
      * ニンジンであるか判別する<BR>
-     * 
      * @return ニンジンの場合は{@code true}、それ以外は{@code false}
-     **/
+     */
     public boolean isCarrot() {
         return this == CARROT;
     }
 
     /**
      * ほうれん草であるか判別する<BR>
-     * 
      * @return ほうれん草の場合は{@code true}、それ以外は{@code false}
-     **/
+     */
     public boolean isSpinach() {
         return this == SPINACH;
     }

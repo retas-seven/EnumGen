@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * 果物のEnumクラス<br>
- * 自動生成：2016/02/21
+ * 自動生成：2016/02/23
  * @author 
  * @version 1.0
  */
@@ -70,27 +70,24 @@ public enum Fruits {
 
     /**
      * りんごであるか判別する<BR>
-     * 
      * @return りんごの場合は{@code true}、それ以外は{@code false}
-     **/
+     */
     public boolean isApple() {
         return this == APPLE;
     }
 
     /**
      * みかんであるか判別する<BR>
-     * 
      * @return みかんの場合は{@code true}、それ以外は{@code false}
-     **/
+     */
     public boolean isOrange() {
         return this == ORANGE;
     }
 
     /**
      * バナナであるか判別する<BR>
-     * 
      * @return バナナの場合は{@code true}、それ以外は{@code false}
-     **/
+     */
     public boolean isBanana() {
         return this == BANANA;
     }

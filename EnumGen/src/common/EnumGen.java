@@ -202,9 +202,8 @@ public class EnumGen {
         for (String[] content : contentList) {
             ret.append(SP).append("/**").append(RN);
             ret.append(SP).append(" * ").append(content[ELEMENT_DESCRIPTION]).append("であるか判別する<BR>").append(RN);
-            ret.append(SP).append(" * ").append(RN);
             ret.append(SP).append(" * @return ").append(content[ELEMENT_DESCRIPTION]).append("の場合は{@code true}、それ以外は{@code false}").append(RN);
-            ret.append(SP).append(" **/").append(RN);
+            ret.append(SP).append(" */").append(RN);
             ret.append(SP).append("public boolean ").append(snakeToCamel("IS_" + content[ELEMENT_NAME])).append("() {").append(RN);
             ret.append(SP).append(SP).append("return this == ").append(content[ELEMENT_NAME]).append(";").append(RN);
             ret.append(SP).append("}").append(RN);
