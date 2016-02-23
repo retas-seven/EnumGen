@@ -29,9 +29,10 @@ public class EnumGen {
     private static final String TODAY = "@TODAY@";
     private static final String RN = "\r\n";
     private static final String SP = "    ";
+    private static final String ERR_LOG_FILE_NAME = "error.log";
 
     /**
-     * main
+     * 主処理
      */
     public static void main(String args[]) {
         List<String> templateContentList = null;
@@ -75,7 +76,7 @@ public class EnumGen {
                 templateContentRow = templateReader.readLine();
             }
         } catch (IOException e) {
-            outlog("error.log", "テンプレート読込で例外発生");
+            outlog(ERR_LOG_FILE_NAME, "テンプレート読込で例外発生");
             throw new RuntimeException(e.getMessage());
         }
         return templateContentRowList;
@@ -97,7 +98,7 @@ public class EnumGen {
                 csvContentRow = br.readLine();
             }
         } catch (IOException e) {
-            outlog("error.log", "CSV読込で例外発生");
+            outlog(ERR_LOG_FILE_NAME, "CSV読込で例外発生");
             throw new RuntimeException(e.getMessage());
         }
 
@@ -145,7 +146,7 @@ public class EnumGen {
                 enumFileWriter.println(replacedRowStr);
             }
         } catch (IOException e) {
-            outlog("error.log", "Enumファイル生成で例外発生");
+            outlog(ERR_LOG_FILE_NAME, "Enumファイル生成で例外発生");
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -183,8 +184,7 @@ public class EnumGen {
 
         for (String[] content : contentList) {
             ret.append(SP).append("/** ").append(content[ELEMENT_DESCRIPTION]).append(" */").append(RN);
-            ret.append(SP).append(content[ELEMENT_NAME]).append("(\"").append(content[ELEMENT_VALUE]).append("\")")
-                    .append(",").append(RN);
+            ret.append(SP).append(content[ELEMENT_NAME]).append("(\"").append(content[ELEMENT_VALUE]).append("\")").append(",").append(RN);
             ret.append(RN);
         }
         ret.delete(ret.length() - 5, ret.length());
@@ -204,7 +204,7 @@ public class EnumGen {
             ret.append(SP).append(" * ").append(content[ELEMENT_DESCRIPTION]).append("であるか判別する<BR>").append(RN);
             ret.append(SP).append(" * @return ").append(content[ELEMENT_DESCRIPTION]).append("の場合は{@code true}、それ以外は{@code false}").append(RN);
             ret.append(SP).append(" */").append(RN);
-            ret.append(SP).append("public boolean ").append(snakeToCamel("IS_" + content[ELEMENT_NAME])).append("() {").append(RN);
+            ret.append(SP).append("public boolean ").append(snakeToCamel(content[ELEMENT_NAME])).append("() {").append(RN);
             ret.append(SP).append(SP).append("return this == ").append(content[ELEMENT_NAME]).append(";").append(RN);
             ret.append(SP).append("}").append(RN);
             ret.append(RN);
@@ -215,16 +215,17 @@ public class EnumGen {
     }
 
     /**
-     * スネークケース表記をローワーキャメルケース表記へ
+     * メソッド名を作成
      */
     public static String snakeToCamel(String targetStr) {
         Pattern p = Pattern.compile("_([a-z])");
-        Matcher m = p.matcher(targetStr.toLowerCase());
-
+        Matcher m = p.matcher("is_" + targetStr.toLowerCase());
         StringBuffer sb = new StringBuffer(targetStr.length());
+        
         while (m.find()) {
             m.appendReplacement(sb, m.group(1).toUpperCase());
         }
+        
         m.appendTail(sb);
         return sb.toString();
     }
@@ -234,8 +235,7 @@ public class EnumGen {
      */
     private static void outlog(String fileName, String str) {
         try (PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName, true), "UTF-8"))) {
-            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(System
-                    .currentTimeMillis()));
+            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(System.currentTimeMillis()));
             writer.println(timestamp + " > " + str);
         } catch (IOException e) {
             e.printStackTrace();
