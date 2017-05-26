@@ -2,11 +2,9 @@ package common;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
@@ -30,6 +28,8 @@ public class EnumGen {
     private static final String RN = "\r\n";
     private static final String SP = "    ";
     private static final String ERR_LOG_FILE_NAME = "error.log";
+    private static final String OUTPUT_SRC_DIR = "output_src";
+    private static final String INPUT_CSV_DIR = "input_csv";
 
     /**
      * 主処理
@@ -57,7 +57,7 @@ public class EnumGen {
      * Enum定義CSVファイル格納ディレクトリの内容を取得
      */
     private static File[] getSourceDirContents() {
-        File[] sourceDirContents = new File("enum_src").listFiles();
+        File[] sourceDirContents = new File(INPUT_CSV_DIR).listFiles();
         return sourceDirContents;
     }
 
@@ -114,7 +114,7 @@ public class EnumGen {
         csvContentList.remove(0);
 
         try (PrintWriter enumFileWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(
-                "enum_dest/" + enumClassName + ".java"), "UTF-8"))) {
+        		OUTPUT_SRC_DIR + "/" + enumClassName + ".java"), "UTF-8"))) {
 
             for (String templateContentRow : templateContentRowList) {
                 String replacedRowStr = new String(templateContentRow);
@@ -221,11 +221,11 @@ public class EnumGen {
         Pattern p = Pattern.compile("_([a-z])");
         Matcher m = p.matcher("is_" + targetStr.toLowerCase());
         StringBuffer sb = new StringBuffer(targetStr.length());
-        
+
         while (m.find()) {
             m.appendReplacement(sb, m.group(1).toUpperCase());
         }
-        
+
         m.appendTail(sb);
         return sb.toString();
     }
